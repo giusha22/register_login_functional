@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Box, styled } from '@mui/material'
+import React from 'react'
+import { Header } from './components/header'
+import { Sidebar } from './components/sidebar/Sidebar';
+import { RouteComponent } from './RouteComponent'
 
-function App() {
+const StyledContentContainer = styled(Box)(()=>({
+  padding:"20px",
+  marginLeft:"255px",
+  marginTop:"70px",
+  background:"white",
+  minHeight:"100vh"
+}));
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Box>
+        <Header/>
+        <Sidebar/>
+        <StyledContentContainer>
+           <RouteComponent/>
+        </StyledContentContainer>
+    </Box>
+  )
 }
 
-export default App;
+export default App
