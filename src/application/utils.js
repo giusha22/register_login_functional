@@ -18,3 +18,7 @@ export const getUserInitials = (firstName,LastName)=>{
         const initial =  `${firstName.charAt(0)} ${LastName.charAt(0)}`
     return initial.toUpperCase()
 };
+
+export const isUserAdmin = (userData)=>{
+    return userData?.role?.includes("admin");
+}

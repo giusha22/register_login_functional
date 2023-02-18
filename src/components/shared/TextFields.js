@@ -11,7 +11,7 @@ export const TextFieldComponent = ({ name, label, value, onChange, error }) => {
     onChange={onChange}
     error={error}
     helperText={
-        <Typography component="span" variant='body2'>
+        <Typography>
             {error}
         </Typography>
     }

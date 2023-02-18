@@ -1,5 +1,6 @@
 import { Box, styled } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { instance } from './application';
 import { Header } from './components/header'
 import { Sidebar } from './components/sidebar/Sidebar';
 import { RouteComponent } from './RouteComponent'
@@ -13,6 +14,7 @@ const StyledContentContainer = styled(Box)(()=>({
 }));
 
 const App = () => {
+
   return (
     <Box>
         <Header/>

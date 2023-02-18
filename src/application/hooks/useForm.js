@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 export const useForm = ({ defaultFormValues }) => {
-    console.log("defaultFormValues",defaultFormValues);
+    // console.log("defaultFormValues",defaultFormValues);
     const [formValues,setFormValues] = useState(defaultFormValues);
 
     const onInputChange = (e)=> {

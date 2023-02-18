@@ -23,6 +23,14 @@ export const authenticateUser = createAsyncThunk("user/authenticateUser",
         error:null,
         message:"",
     },
+    reducers:{
+        logoutUser:(state)=>{
+          state.userData = null;
+          localStorage.removeItem("token");
+          localStorage.removeItem("refresh_token");
+        },
+      },
+
     extraReducers:(builder)=>{
         builder.addCase(authenticateUser.pending,(state)=>{
             state.loading = true
@@ -38,4 +46,5 @@ export const authenticateUser = createAsyncThunk("user/authenticateUser",
     }
 });
 
+export const { logoutUser } = userSlice.actions;
 export const userReducer = userSlice.reducer;
