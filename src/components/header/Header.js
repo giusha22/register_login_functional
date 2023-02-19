@@ -14,7 +14,11 @@ export const Header = () => {
         color:"#fff",
         paddingLeft:"270px",
         paddingRight:"50px",
-        marginBottom:"100px"
+        marginBottom:"100px",
+        // display:"flex",
+        // padding:"0 100px 0 30px",
+        // width:"calc(100% -255px)",
+
       
       }));
       const StyledToolBar = styled(Toolbar)(()=>({

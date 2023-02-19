@@ -30,7 +30,18 @@ export const persistor = persistStore(store)
 export { authenticateUser,
              logoutUser,
   } from "./slice/userSlice";
-export { saveProduct, setSelectedProduct  } from "./slice/ProductSlice";
+export {
+    //async thunks
+     saveProduct,
+    fetchHomePageProducts,
+    fetchCategoryProducts,
+    //reducer
+     setSelectedProduct 
+     ,clearEditFields
+     } from "./slice/ProductSlice";
 
 export const useUserInfo = ()=>useSelector((state)=>state.user.userData);
-export const useSelectedProduct = ()=>useSelector((state)=>state.product.selectedProduct)
+export const useSelectedProduct = ()=>useSelector((state)=>state.product.selectedProduct);
+export const useHomePageProducts = ()=>useSelector((state)=>state.product.homePageProducts);
+export const useCategories = ()=>useSelector((state)=>state.product.categories);
+export const useCategoryProducts = ()=>useSelector((state)=>state.product.categoryProducts);

@@ -58,7 +58,8 @@ export const ProductForm = () => {
       console.log("selectedProduct",selectedProduct);
 
       
-  const onSaveProduct = ()=>{
+  const onSaveProduct = (e)=>{
+    e.preventDefault()
     const name = productFormValues.name.value;
     const description = productFormValues.description.value;
     const category = productFormValues.category.value;
@@ -75,8 +76,9 @@ export const ProductForm = () => {
             image,
             id: selectedProduct?._id
         },
-        isUpdate: !!selectedProduct
-    })
+        isUpdating: !!selectedProduct
+
+    }), dispatch(clearEditFields())
     
     )
     .unwrap().then(()=>{
@@ -84,12 +86,13 @@ export const ProductForm = () => {
     })
    
 };
-// useEffect(()=>{
-//     if(selectedProduct){
-//         setFormValues(generateAddProductFormValues(selectedProduct))
-//     }
-// },[selectedProduct])
-    
+useEffect(()=>{
+    if(selectedProduct){
+        setFormValues(generateAddProductFormValues(selectedProduct))
+        setImage(selectedProduct.image);
+    }
+},[selectedProduct])
+   
   return (
     <FormControl fullWidth>
  <TextFieldComponent
