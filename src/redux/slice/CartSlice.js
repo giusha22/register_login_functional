@@ -1,0 +1,68 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const cardSlice = createSlice({
+    name:"cart",
+    initialState:{
+        loading:false,
+        cartItems: [],
+        error: null,
+    },
+    reducers:{
+        addToCart: (state,action) => {
+            const product = action.payload;
+            const productId = product._id;
+            const cartItem = state.cartItems?.find(
+                (item)=>item.product._id === productId)
+
+        console.log("product", product);
+        console.log("productId", productId);
+        console.log("cartItem", cartItem);
+
+        if (cartItem) {
+          const updatedCart = state.cartItems.map((cartItem) =>
+            cartItem.product._id === productId
+              ? {
+                  ...cartItem,
+                  quantity: cartItem.quantity + 1,
+                }
+              : cartItem
+          );
+          state.cartItems = updatedCart;
+        } else {
+          state.cartItems.push({ product, quantity: 1 });
+        }
+        }, 
+        
+        
+        removeFromCart: (state, action) => {
+          const productId = action.payload;
+          const cartItem = state.cartItems?.find(
+            (item) => item.product._id === productId
+          );
+    
+          let updatedCart;
+          if (cartItem.quantity === 1) {
+            updatedCart = state.cartItems.filter(
+              (item) => item.product._id !== productId
+            );
+          } else {
+            updatedCart = state.cartItems?.map((item) =>
+              item.product._id === productId
+                ? {
+                    ...item,
+                    quantity: item.quantity - 1,
+                  }
+                : item
+            );
+          }
+    
+          state.cartItems = updatedCart;
+        }, 
+        clearCart:(state) =>{
+            state.cartItems = [];
+        },
+ 
+    },
+});
+export const { addToCart, removeFromCart, clearCart } =cardSlice.actions;
+export const cartReducer = cardSlice.reducer;

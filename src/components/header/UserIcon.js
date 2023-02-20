@@ -1,4 +1,5 @@
 import { Avatar, Box, IconButton, Menu, MenuItem } from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +26,7 @@ export const UserIcon = () => {
   return (
     <Box>
         <IconButton onClick={(e)=>{ setAnchor(e.currentTarget) }}>
-            <Avatar sx={{width:"45px", height:"45px"}}>
+            <Avatar sx={{width:"45px", height:"45px", bgcolor:deepOrange[500] }}>
                 {getUserInitials(userInfo?.firstName, userInfo?.lastName)}
             </Avatar>
         </IconButton>

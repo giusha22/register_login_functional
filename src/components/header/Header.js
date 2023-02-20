@@ -30,7 +30,7 @@ export const Header = () => {
     <Box>
         <StyledAppBar>
             <StyledToolBar>
-                <Button variant='outlined' onClick={()=>goInHome()} sx={{marginLeft:"10px"}} >Home</Button>
+                <Button variant='contained' onClick={()=>goInHome()} sx={{marginLeft:"10px"}} >Home</Button>
                 <SearchBar/>
                 <UserIcon/>
             </StyledToolBar>

@@ -6,6 +6,9 @@ export const Paginate = ({totalPages,currentPage, changePage, queryKey}) => {
     <Pagination
     count= {totalPages}
     page= {+currentPage}
+    onChange={((_,value)=>{
+      changePage(queryKey,value)
+    })}
     
     />
   )

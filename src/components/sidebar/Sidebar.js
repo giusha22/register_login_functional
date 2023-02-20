@@ -20,7 +20,7 @@ export const Sidebar = () => {
         <Link>{sidebarItems.map((item)=>{
           const {_id,name} = item
           return <React.Fragment key={_id}>
-              <Link to={`/products/categories/${name}`}>
+              <Link to={`/products/categories/${name}?page=1&sort=name,asc`}>
               <Box>
                 <StyledListItem>
                   <ListItemText primary={name}/>

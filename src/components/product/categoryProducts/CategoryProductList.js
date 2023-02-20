@@ -1,12 +1,14 @@
 import { Grid } from '@mui/material';
 import React from 'react'
+import { useQueryParam } from '../../../application';
 import { useCategoryProducts } from '../../../redux'
 import { GridComponent } from '../../shared';
 import { ProductCard } from '../ProductCard';
 
 export const CategoryProductList = () => {
   const categoryProducts = useCategoryProducts();
-  console.log("categoryProducts",categoryProducts);
+
+
   return (
     <GridComponent>
       {categoryProducts.products?.map((product)=>{
