@@ -20,7 +20,7 @@ const StyledBox = styled(Box)(()=>({
 export const ProductCard = ({name, _id, image, price, category, brand, description }) => {
  const dispatch = useDispatch();
  const cartItems = useCartItems();
- console.log("cartItems",cartItems);
+//  console.log("cartItems",cartItems);
  const userInfo = useUserInfo(); 
  const navigate = useNavigate();
 
