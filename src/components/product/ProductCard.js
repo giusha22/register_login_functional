@@ -1,10 +1,11 @@
-import { Box, Card, CardActions, Grid, styled, Typography } from '@mui/material'
+import { Box, Card, CardActions, Grid, Rating, styled, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { isUserAdmin } from '../../application';
-import { addToCart, removeFromCart, setSelectedProduct, useCartItems, useUserInfo } from '../../redux';
+import { addToCart, rateProduct, removeFromCart, setSelectedProduct, useCartItems, useUserInfo } from '../../redux';
 import { StyledButton } from '../../Styles';
+import { Ratings } from './Rating';
 
 const StyledCardContent = styled(Box)(()=>({
   display:"flex",
@@ -17,7 +18,7 @@ const StyledBox = styled(Box)(()=>({
   justifyContent:"space-between",
 }));
 
-export const ProductCard = ({name, _id, image, price, category, brand, description }) => {
+export const ProductCard = ({name, _id, image, price, category, brand, description,averageRating }) => {
  const dispatch = useDispatch();
  const cartItems = useCartItems();
 //  console.log("cartItems",cartItems);
@@ -32,10 +33,27 @@ const onEdit = ()=>{
     }
   }))
   navigate(`/products/edit/${name}`)
+};
+const {pathname, search} = useLocation();
+// console.log("location",`${pathname}${search}` );
+
+const onRatingChange =(e)=>{
+  console.log("e.target.value",e.target.value);
+  dispatch(rateProduct({ productId:_id, userId:userInfo?._id,
+   url:`${category}${search}&size=2`,
+   isHome: pathname ==="/",
+   rating: e.target.value,
+ }))
 }
   return (
     <Grid item >
-      <Card>
+      <Card style={{ padding: "20px", borderRadius: "30px"}}>
+          <Link
+            to={`/products/categories/${category}/${name}`}
+            state={{ id: _id }}
+            replace={true}
+            style={{ textDecoration: "none" }}
+          >
         <img src={image} alt={`${category} ${name}`} width="200px" height="200px"/>
         <StyledCardContent>
           <Typography>{name}</Typography>
@@ -43,7 +61,9 @@ const onEdit = ()=>{
           <Typography>{brand}</Typography>
           <Typography>{description}</Typography>
         </StyledCardContent>
+        </Link>
           <CardActions>
+            <Ratings value={averageRating} isDisabled={!userInfo} onChange={onRatingChange}/>
             <StyledBox>
               {isProductInCart ? (
                 <>

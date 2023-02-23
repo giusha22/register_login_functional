@@ -28,6 +28,37 @@ export const fetchCategoryProducts = createAsyncThunk(
     return data;
   }
 ); 
+export const fetchQueryProducts =createAsyncThunk("product/fetchQueryProducts",async(name)=>{
+  const {data} = await instance.get(`/products?name=${name}`);
+  return data
+});
+export const fetchSingleProductById = createAsyncThunk(
+  "product/fetchSingleProductById",
+  async ({ id, category }) => {
+    const { data } = await instance.get(`/products/category/${category}/${id}`);
+    return data;
+  }
+);
+export const rateProduct = createAsyncThunk(
+  "/product/rateProduct",
+  async ({ productId, userId, url, rating, isHome }, { dispatch }) => {
+    console.log("url", url);
+
+    await instance.post(`products/${productId}/users/${userId}/rate`, {
+      rating,
+    });
+
+    if (!isHome) {
+      dispatch(fetchCategoryProducts(url));
+    } else {
+      dispatch(fetchHomePageProducts());
+    }
+  }
+);
+
+
+
+
 const ProductSlice = createSlice({
     name:"product",
     initialState:{
@@ -37,6 +68,9 @@ const ProductSlice = createSlice({
         categories: [],
         categoryProducts: [],
         error:null,
+        searchResults : [],
+        singleProduct: null,
+
     },
     reducers:{
       setSelectedProduct:(state,action)=>{
@@ -45,6 +79,9 @@ const ProductSlice = createSlice({
       },
       clearEditFields:(state)=>{
         state.selectedProduct = null
+      },
+      setSearchResults: (state) => {
+        state.searchResults = [];
       },
     },
 
@@ -85,9 +122,32 @@ const ProductSlice = createSlice({
             state.error = " could not fetch  categorty";
           });
 
+          builder.addCase(fetchQueryProducts.pending, (state) => {
+            state.loading = true;
+          });
+          builder.addCase(fetchQueryProducts.fulfilled, (state, action) => {
+            state.loading = false;
+            state.searchResults = action.payload.products;
+          });
+          builder.addCase(fetchQueryProducts.rejected, (state, action) => {
+            state.loading = false;
+            state.error = "oops something went wrong";
+          });
+          builder.addCase(fetchSingleProductById.pending, (state) => {
+            state.loading = true;
+          });
+          builder.addCase(fetchSingleProductById.fulfilled, (state, action) => {
+            state.loading = false;
+            state.singleProduct = action.payload.product;
+          });
+          builder.addCase(fetchSingleProductById.rejected, (state) => {
+            state.loading = false;
+            state.error = "could not get product";
+          });
+
 
     }
 });
 
-export const { setSelectedProduct , clearEditFields } = ProductSlice.actions;
+export const { setSelectedProduct , clearEditFields, setSearchResults } = ProductSlice.actions;
 export const productReducer = ProductSlice.reducer;

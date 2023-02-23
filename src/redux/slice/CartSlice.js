@@ -1,4 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { instance } from "../../application";
+
+export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
+  const { data } = await instance.get(`/users/${userId}/cart`);
+  return data;
+});
+
+
+export const saveCart = createAsyncThunk("cart/saveCart",
+async ({ userId, cartItems }, { dispatch }) => {
+  await instance.put(`/users/${userId}/cart`, { products: cartItems });
+  dispatch(fetchCart(userId));
+}
+);
 
 const cardSlice = createSlice({
     name:"cart",

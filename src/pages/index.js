@@ -4,4 +4,5 @@ export { LoginPage } from "./LoginPage";
 export { ProductFormPage } from "./ProductFormPage";
 export { ProfilePage } from "./ProfilePage";
 export { CategoryProductPage } from "./CategoryProductPage"; 
+export { SingleProductPage } from "./SingleProductPage";
 
